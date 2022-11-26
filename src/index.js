@@ -1,13 +1,52 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Letters from './Letters';
 import reportWebVitals from './reportWebVitals';
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useRouteError,
+} from "react-router-dom";
+
+function Selector() {
+  return (
+    <ul className="menu">
+      <li>Letters:{" "}
+        <a href="/letters/en">English</a>,{" "}
+        <a href="/letters/de">Deutsch</a>,{" "}
+        <a href="/letters/ru">Русский</a></li>
+    </ul>
+  );
+}
+
+function NotFound() {
+  const error = useRouteError();
+  console.log(error);
+  return <>{error.status} {error.statusText}</>;
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <NotFound/>,
+    element: <Selector/>,
+  },
+  {
+    path: "letters",
+    element: <Letters/>,
+  },
+  {
+    path: "letters/:lang",
+    element: <Letters/>,
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 
