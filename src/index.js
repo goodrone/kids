@@ -5,7 +5,8 @@ import Letters from './Letters';
 import reportWebVitals from './reportWebVitals';
 
 import {
-  createBrowserRouter,
+  createHashRouter,
+  Link,
   RouterProvider,
   useRouteError,
 } from "react-router-dom";
@@ -14,9 +15,9 @@ function Selector() {
   return (
     <ul className="menu">
       <li>Letters:{" "}
-        <a href="/letters/en">English</a>,{" "}
-        <a href="/letters/de">Deutsch</a>,{" "}
-        <a href="/letters/ru">Русский</a></li>
+        <Link to="/letters/en">English</Link>,{" "}
+        <Link to="/letters/de">Deutsch</Link>,{" "}
+        <Link to="/letters/ru">Русский</Link></li>
     </ul>
   );
 }
@@ -27,7 +28,7 @@ function NotFound() {
   return <>{error.status} {error.statusText}</>;
 }
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     errorElement: <NotFound/>,
